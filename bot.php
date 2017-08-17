@@ -9,10 +9,31 @@ $channelSecret = "0607c7cf2e8d92697898857ff87a69b5";
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channelToken);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
-$response = $bot->replyMessage('<replyToken>', $textMessageBuilder);
 
-echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-
+// Get POST body content
+$content = file_get_contents('php://input');
+// Parse JSON
+$events = json_decode($content, true);
+// Validate parsed JSON data
+if (!is_null($events['events'])) {
+	// Loop through each event
+	foreach ($events['events'] as $event) {
+		// Reply only when message sent is in 'text' format
+		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+			// Get text sent
+			$text = $event['message']['text'];
+			// Get replyToken
+			$replyToken = $event['replyToken'];
+			
+			if($text == "hello"){
+				$response = $bot->replyText($replyToken, "สวัสดี");
+			}else{
+				$response = $bot->replyText($replyToken, $text);
+			}
+			
+			
+		}
+	}
+}
 echo "OK";
 ?>
