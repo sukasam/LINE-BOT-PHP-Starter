@@ -7,10 +7,6 @@ $channelSecret = "0607c7cf2e8d92697898857ff87a69b5";
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channelToken);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
 
-$response = $bot->replyText('<reply token>', 'hello!');
-
-
-/*$access_token = 'YNjsjurrJe8/74ZkrudrQCFjyWiWcujuzzhAMZ/fden0FBNYAfT+2Q6qAIzBrVDN273QKEVlUinjTeNPh+6696J4NBEPF34LaT8GfExE118m0I8sfZfdfr4jgd0g8H0viC+Sfk15MmzWbtODBuS0UwdB04t89/1O/w1cDnyilFU=';
 
 // Get POST body content
 $content = file_get_contents('php://input');
@@ -27,7 +23,7 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
-			// Build message to reply back
+			/*// Build message to reply back
 			$messages = [
 				'type' => 'text',
 				'text' => $text
@@ -51,9 +47,11 @@ if (!is_null($events['events'])) {
 			$result = curl_exec($ch);
 			curl_close($ch);
 
-			echo $result . "\r\n";
+			echo $result . "\r\n";*/
+			
+			$response = $bot->replyText('<reply token>', $text);
 		}
 	}
 }
-echo "OK";*/
+echo "OK";
 ?>
