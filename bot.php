@@ -25,21 +25,20 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			
+			$userId = $event['source']['userId'];
+			
 			if($text == "สวัสดี" || $text == "Hello"){
 				
-				$response = $bot->getProfile('<userId>');
+				$response = $bot->getProfile($userId);
 				if ($response->isSucceeded()) {
 					$profile = $response->getJSONDecodedBody();
-					/*echo $profile['displayName'];
-					echo $profile['pictureUrl'];
-					echo $profile['statusMessage'];*/
 					$response = $bot->replyText($replyToken, $profile['displayName']);
 				}else{
 					$response = $bot->replyText($replyToken, $text);
 				}
 				
 			}else{
-				$response = $bot->replyText($replyToken, $content);
+				$response = $bot->replyText($replyToken, $text);
 			}
 			
 			
