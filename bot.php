@@ -9,8 +9,10 @@ $channelSecret = "0607c7cf2e8d92697898857ff87a69b5";
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channelToken);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
 
-$response = $bot->replyText($replyToken, $text);
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+$response = $bot->replyMessage('<replyToken>', $textMessageBuilder);
 
+echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
 echo "OK";
 ?>
