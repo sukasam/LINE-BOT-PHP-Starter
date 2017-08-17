@@ -28,7 +28,7 @@ if (!is_null($events['events'])) {
 			if($text == "hello"){
 				$response = $bot->replyText($replyToken, "สวัสดี");
 			}else{
-				$response = $bot->replyText($replyToken, $text);
+				$response = $bot->replyText($replyToken, $content);
 			}
 			
 			
